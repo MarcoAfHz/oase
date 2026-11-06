@@ -1,0 +1,41 @@
+Options -Indexes
+
+# =============================================
+# Ocultar .php de las URLs
+# =============================================
+RewriteEngine On
+
+# No reescribir rutas de admin/ajax ni api
+RewriteRule ^admin/ajax/ - [L]
+RewriteRule ^api/ - [L]
+
+# Si el archivo existe tal cual, servirlo directamente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Añadir .php si no tiene extensión
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L,QSA]
+
+# Redirigir URLs con .php a sin .php
+RewriteCond %{THE_REQUEST} \s/(.+?)\.php[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
+
+# =============================================
+# Proteger archivos sensibles
+# =============================================
+<FilesMatch "(config\.php|crear-admin\.php|composer\.json|composer\.lock)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Proteger carpeta vendor
+RewriteRule ^vendor/ - [F,L]
+
+# =============================================
+# Seguridad general
+# =============================================
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options SAMEORIGIN
+</IfModule>

@@ -1,0 +1,9 @@
+/* ===== BOOKING PAGE ===== */
+.booking-page-wrap { padding-top: 80px; overflow-x: hidden; }
+.booking-page-wrap .page-header { background: #080603; padding: 5rem 2rem 4rem; border-bottom: 0.5px solid #1e1a13; text-align: center; }
+.booking-page-wrap .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; max-width: 960px; margin: 4rem auto; padding: 0 2rem; }
+
+@media (max-width: 768px) {
+  .booking-page-wrap .page-header { padding: 6rem 1.25rem 2.5rem; }
+  .booking-page-wrap .booking-grid { grid-template-columns: 1fr; gap: 2rem; padding: 0 1.25rem; }
+}
